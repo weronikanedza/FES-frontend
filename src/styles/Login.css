@@ -1,0 +1,27 @@
+@media all and (min-width: 480px) {
+    body{
+      background-image: url('../images/background.jpg'); 
+    }
+
+    .register{
+      margin-top: 10px;
+      text-align: center;
+    }
+    
+    .Login{
+      margin-top:200px;
+      /* display: block;
+      margin:0 auto;
+     background: yellow;
+     width: 400px; */
+    }
+  
+    .Login form {
+      padding: 50px 10px;
+      margin: 0 auto;
+      max-width: 400px;
+      border-radius:20px; 
+      background: white;
+      border: 1px solid grey;
+    }
+  }
