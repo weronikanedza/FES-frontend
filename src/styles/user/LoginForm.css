@@ -1,6 +1,6 @@
 @media all and (min-width: 480px) {
     body{
-      background-image: url('../images/background.jpg'); 
+      background-image: url('../../images/background.jpg'); 
     }
 
     .register{
@@ -8,7 +8,7 @@
       text-align: center;
     }
     
-    .Login{
+    .login{
       margin-top:200px;
       /* display: block;
       margin:0 auto;
@@ -16,12 +16,16 @@
      width: 400px; */
     }
   
-    .Login form {
+    .login form {
       padding: 50px 10px;
       margin: 0 auto;
       max-width: 400px;
       border-radius:20px; 
       background: white;
       border: 1px solid grey;
+    }
+
+    a{
+      float: right;
     }
   }

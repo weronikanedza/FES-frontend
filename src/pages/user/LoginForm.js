@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import "../styles/Login.css";
+import "../../styles/user/LoginForm.css";
 
 export default class LoginForm extends Component {
   constructor(props) {
@@ -10,10 +10,16 @@ export default class LoginForm extends Component {
       email: "",
       password: ""
     };
+
+    this.handleClick = this.handleClick.bind(this);
   }
 
   validateForm() {
     return this.state.email.length > 0 && this.state.password.length > 0;
+  }
+
+  handleClick() {
+    window.location = './register'
   }
 
   handleChange = event => {
@@ -30,7 +36,7 @@ export default class LoginForm extends Component {
 
   render() {
     return (
-      <div className="Login">
+      <div className="login">
         <form onSubmit={this.handleSubmit}>
           <FormGroup controlId="email" bsSize="large">
             <ControlLabel >Email</ControlLabel>
@@ -43,6 +49,7 @@ export default class LoginForm extends Component {
           </FormGroup>
           <FormGroup controlId="password" bsSize="large">
             <ControlLabel>Password</ControlLabel>
+            <a href="./resetPassword"> Forget password ?</a>
             <FormControl
               value={this.state.password}
               onChange={this.handleChange}
@@ -56,8 +63,9 @@ export default class LoginForm extends Component {
             bsStyle="info"
             type="submit"
           >
-            Login
+            Sign in
           </Button>
+
 
           <div className='register'>
             <span fontWeight="bold">If you do not have account </span>
@@ -65,6 +73,7 @@ export default class LoginForm extends Component {
             <Button
               block
               bsSize="large"
+              onClick={this.handleClick}
               className="btn btn-warning"
               bsStyle="primary"
             >
@@ -73,6 +82,8 @@ export default class LoginForm extends Component {
           </div>
         </form>
       </div>
+
+
     );
   }
 }

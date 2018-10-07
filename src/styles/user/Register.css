@@ -1,0 +1,62 @@
+@media all and (min-width: 480px) {
+    body {
+        background-image: url('../../images/background.jpg');
+    }
+    .registerForm {
+        margin-top: 200px;
+        /* display: block;
+      margin:0 auto;
+     background: yellow;
+     width: 400px; */
+    }
+    .registerForm form {
+        padding: 50px 10px;
+        margin: 0 auto;
+        max-width: 950px;
+        border-radius: 20px;
+        background: white;
+        border: 1px solid grey;
+    }
+    a {
+        float: right;
+    }
+    .react-datepicker-wrapper {
+        border-radius: 5px;
+    }
+    input {
+        width: 300px;
+        height: 38px;
+        border-radius: 2px;
+        border: 1px solid #CED4DA;
+        text-align: center;
+        color: #9d9fa0;
+        margin-right: 10px;
+        float: left;
+    }
+    .css-1hwfws3 {
+        height: 38px;
+        width: 260px;
+    }
+    label {
+        margin-right: 5px;
+    }
+    .form-group {
+        float: left;
+    }
+
+    .form-inline .form-control {
+        width: 300px;       
+    }
+    .groupPair {
+        margin-top: 10px;
+        margin-bottom:10px;
+    }
+
+    label{
+        min-width: 130px;
+    }
+
+    button{
+        max-width:800px;
+    }
+}
