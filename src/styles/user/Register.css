@@ -43,20 +43,37 @@
     .form-group {
         float: left;
     }
-
     .form-inline .form-control {
-        width: 300px;       
+        width: 300px;
     }
     .groupPair {
         margin-top: 10px;
-        margin-bottom:10px;
+        margin-bottom: 10px;
     }
-
-    label{
+    label {
         min-width: 130px;
     }
+    button {
+        max-width: 800px;
+    }
 
-    button{
-        max-width:800px;
+    .clear{
+        clear: both;
+    }
+    .warning {
+        clear: both;
+        color: red;
+        font-weight: bold;
+        text-align: center;
+        font-size: 125%;
+        border-radius: 10px;
+        border: 1px solid grey;
+        background: white;
+        max-width: 950px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .space{
+        margin:20px;
     }
 }
