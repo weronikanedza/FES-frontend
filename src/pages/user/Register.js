@@ -3,10 +3,9 @@ import {Button, FormGroup, FormControl, ControlLabel, Form} from "react-bootstra
 import "../../styles/user/Register.css";
 import countryList from 'react-select-country-list'
 import Select from 'react-select'
-
+import axios from 'axios'
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-
 import 'react-datepicker/dist/react-datepicker.css';
 
 export default class Register extends Component {
@@ -31,24 +30,16 @@ export default class Register extends Component {
             isMounted: false
         };
 
-        this.handleClick = this.handleClick.bind(this);
         this.validateForm = this.validateForm.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.validateFormInputsLength = this.validateFormInputsLength.bind(this);
         this.validatePasswordsEquality = this.validatePasswordsEquality.bind(this);
         this.handleChangeDate = this.handleChangeDate.bind(this);
-        this.handleChangeCountry = this.handleChangeCountry(this);
+        this.validateDate = this.validateDate.bind(this);
+        this.handleChangeCountry = this.handleChangeCountry.bind(this);
+        this.isAdult = this.isAdult.bind(this);
+        this.validate = this.validate.bind(this);
     }
 
-    handleClick() {
-        window.location = './register'
-    }
-
-    componentDidMount() {
-        this.setState({
-            isMounted: true
-        });
-    }
 
     handleChange = (event) => {
         this.setState({
@@ -63,34 +54,30 @@ export default class Register extends Component {
         });
     }
 
-    handleChangeCountry(country) {
+    componentDidMount() {
+        this.setState({
+            isMounted: true
+        });
+    }
 
+    handleChangeCountry(country) {
         if (this.state.isMounted) {
             this.setState({
-                country: country
+                country: country.label
             });
         }
     }
 
     handleSubmit = event => {
         this.validateForm();
-        alert(this.state.password)
-        alert(this.state.email)
         event.preventDefault();
+        if (this.validateForm())
+            this.postRequest();
     }
 
     validateForm() {
-        return this.validateFormInputsLength() &&
-            this.validatePasswordsEquality() &&
-            this.validatePasswordStrength();
+        return this.validateDate() && this.validatePasswordsEquality() && this.validatePasswordStrength();
 
-    }
-
-    validateFormInputsLength() {
-        return this.state.email.length > 0 && this.state.password.length > 0 &&
-            this.state.firstName.length > 0 && this.state.lastName.length > 0 &&
-            this.state.dateOfBirth.length > 0 && this.state.country.length > 0 &&
-            this.state.city.length > 0 && this.state.confirmedPassword.length > 0
     }
 
     validatePasswordsEquality() {
@@ -106,7 +93,7 @@ export default class Register extends Component {
     }
 
     validatePasswordStrength() {
-        if (this.state.password.match("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")) {
+        if (this.state.password.match("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$")) {
             return true;
         } else {
             this.setState({
@@ -114,6 +101,54 @@ export default class Register extends Component {
                 disabledWarning: {display: "block"}
             });
         }
+    }
+
+    validateDate() {
+        return this.validateFormat() && this.isAdult();
+    }
+
+    validateFormat() {
+        const selectedDate = this.state.dateOfBirth;
+        const message = "Date format incorrect";
+        return this.validate(selectedDate && moment(selectedDate, 'DD-MM-YYYY', true).isValid(), message)
+    }
+
+    isAdult() {
+        const day = this.state.startDate.day();
+        const month = this.state.startDate.month();
+        const year = this.state.startDate.year();
+        return this.validate(new Date(year + 18, month - 1, day) <= new Date(), "You are not adult");
+    }
+
+    validate(condition, message) {
+        if (condition) {
+            return true;
+        } else {
+            this.setState({
+                warning: message,
+                disabledWarning: {display: "block"}
+            });
+            return false;
+        }
+    }
+
+    postRequest() {
+        const user = {
+            id:'',
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            email: this.state.email,
+            dateOfBirth: this.state.dateOfBirth,
+            city: this.state.city,
+            country: this.state.country,
+            password: this.state.password,
+            confirmedPassword: this.state.confirmedPassword
+        }
+        axios.post("http://localhost:8080/register", {user})
+            .then(res => {
+                    console.log(res);
+                }
+            )
     }
 
     render() {
@@ -127,6 +162,7 @@ export default class Register extends Component {
                                 type="text"
                                 value={this.state.firstName}
                                 onChange={this.handleChange}
+                                required
                             />
                         </FormGroup>
                         <FormGroup controlId="lastName" bsSize="large">
@@ -136,6 +172,7 @@ export default class Register extends Component {
                                 type="text"
                                 value={this.state.lastName}
                                 onChange={this.handleChange}
+                                required
                             />
                         </FormGroup>
                     </div>
@@ -147,14 +184,15 @@ export default class Register extends Component {
                                 type="email"
                                 value={this.state.email}
                                 onChange={this.handleChange}
+                                required
                             />
                         </FormGroup>
                         <FormGroup controlId="dateOfBirth" bsSize="large">
                             <ControlLabel>Date Of Birth</ControlLabel>
-
                             <DatePicker
                                 selected={this.state.startDate}
                                 onChange={this.handleChangeDate}
+                                required
                             />
                         </FormGroup>
                     </div>
@@ -166,16 +204,20 @@ export default class Register extends Component {
                                 type="text"
                                 value={this.state.city}
                                 onChange={this.handleChange}
+                                required
                             />
                         </FormGroup>
+
                         <FormGroup controlId="Country" bsSize="large">
                             <ControlLabel>Country</ControlLabel>
-                            <Select
-                                options={this.state.options}
-                                value={this.state.value}
-                                onChange={this.handleChangeCountry}
+                            <Select required="required"
+                                    options={this.state.options}
+                                    value={this.state.value}
+                                    onChange={this.handleChangeCountry}
+
                             />
                         </FormGroup>
+
                     </div>
                     <div className="groupPair">
                         <FormGroup controlId="password" bsSize="large">
@@ -184,6 +226,7 @@ export default class Register extends Component {
                                 value={this.state.password}
                                 onChange={this.handleChange}
                                 type="password"
+                                required
                             />
                         </FormGroup>
                         <FormGroup controlId="confirmedPassword" bsSize="large">
@@ -192,6 +235,7 @@ export default class Register extends Component {
                                 value={this.state.confirmedPassword}
                                 onChange={this.handleChange}
                                 type="password"
+                                required
                             />
                         </FormGroup>
                     </div>

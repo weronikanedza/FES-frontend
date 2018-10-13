@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@availity/reactstrap-validation-select": "^1.5.1",
+    "availity-reactstrap-validation": "^2.3.0",
+    "axios": "^0.18.0",
     "create-react-class": "^15.6.3",
     "moment": "^2.22.2",
     "react": "^16.5.2",
@@ -14,7 +17,8 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.4",
     "react-select": "^2.1.0",
-    "react-select-country-list": "^1.0.7"
+    "react-select-country-list": "^1.0.7",
+    "reactstrap": "^6.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
