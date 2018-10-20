@@ -146,8 +146,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/message/RegistrationConfirmation.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="31" column="8" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="8" />
+            <state relative-caret-position="323">
+              <caret line="19" column="10" lean-forward="true" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -233,7 +233,7 @@
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-1971" />
     <option name="y" value="249" />
     <option name="width" value="1400" />
@@ -356,7 +356,7 @@
       <workItem from="1539502177539" duration="1113000" />
       <workItem from="1539521774445" duration="1433000" />
       <workItem from="1539782290139" duration="657000" />
-      <workItem from="1540026858596" duration="13452000" />
+      <workItem from="1540026858596" duration="14050000" />
     </task>
     <task id="LOCAL-00001" summary="register form validation">
       <created>1539372372929</created>
@@ -369,10 +369,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34396000" />
+    <option name="totallyTimeSpent" value="34994000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1928" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-1928" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17650159" />
@@ -562,8 +562,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/message/RegistrationConfirmation.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="31" column="8" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="8" />
+        <state relative-caret-position="323">
+          <caret line="19" column="10" lean-forward="true" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
