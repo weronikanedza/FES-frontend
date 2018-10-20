@@ -2,6 +2,6 @@ import React, { Component } from "react";
 
 export default class ResetPassword extends Component {
     render() {
-        return (<div> ResetPassword</div>);
+        return (<div> ResetPassword </div>);
     }
 }

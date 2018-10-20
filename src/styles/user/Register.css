@@ -4,10 +4,6 @@
     }
     .registerForm {
         margin-top: 200px;
-        /* display: block;
-      margin:0 auto;
-     background: yellow;
-     width: 400px; */
     }
     .registerForm form {
         padding: 50px 10px;
@@ -17,7 +13,7 @@
         background: white;
         border: 1px solid grey;
     }
-    a {
+    .registerForm a {
         float: right;
     }
     .react-datepicker-wrapper {

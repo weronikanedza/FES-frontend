@@ -3,6 +3,10 @@
       background-image: url('../../images/background.jpg'); 
     }
 
+    #loginEmail{
+    width: 378px;
+    }
+
     .register{
       margin-top: 10px;
       text-align: center;
@@ -10,10 +14,6 @@
     
     .login{
       margin-top:200px;
-      /* display: block;
-      margin:0 auto;
-     background: yellow;
-     width: 400px; */
     }
   
     .login form {
@@ -25,7 +25,7 @@
       border: 1px solid grey;
     }
 
-    a{
+    .login form a{
       float: right;
     }
   }

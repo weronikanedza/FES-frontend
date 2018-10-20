@@ -4,6 +4,8 @@ import LoginForm from './user/LoginForm';
 import Register from './user/Register';
 import ResetPassword from './user/ResetPassword';
 import Home from './user/Home';
+import RegistrationConfirmation from '././message/RegistrationConfirmation.js';
+import RegistrationMessage from '././message/RegistrationMessage.js';
 
 class App extends Component {
     render() {
@@ -13,6 +15,8 @@ class App extends Component {
             <Route exact path="/home" component={Home} />
                 <Route exact path="/login" component={LoginForm} />
                 <Route exact path="/register" component={Register} />
+                <Route exact path="/register/message" component={RegistrationMessage} />
+                <Route exact path="/registration/confirm" component={RegistrationConfirmation} />
                 <Route exact path="/resetPassword" component={ResetPassword} />
             </div>
             </Router>

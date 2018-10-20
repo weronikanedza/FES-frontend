@@ -38,6 +38,7 @@ export default class Register extends Component {
         this.handleChangeCountry = this.handleChangeCountry.bind(this);
         this.isAdult = this.isAdult.bind(this);
         this.validate = this.validate.bind(this);
+        this.displayErrorMessage = this.displayErrorMessage.bind(this);
     }
 
 
@@ -45,7 +46,7 @@ export default class Register extends Component {
         this.setState({
             [event.target.id]: event.target.value
         });
-    }
+    };
 
     handleChangeDate(date) {
         this.setState({
@@ -69,11 +70,10 @@ export default class Register extends Component {
     }
 
     handleSubmit = event => {
-        this.validateForm();
+        //  if (this.validateForm())
+        this.postRequest();
         event.preventDefault();
-        if (this.validateForm())
-            this.postRequest();
-    }
+    };
 
     validateForm() {
         return this.validateDate() && this.validatePasswordsEquality() && this.validatePasswordStrength();
@@ -134,7 +134,7 @@ export default class Register extends Component {
 
     postRequest() {
         const user = {
-            id:'',
+            id: '',
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             email: this.state.email,
@@ -143,12 +143,28 @@ export default class Register extends Component {
             country: this.state.country,
             password: this.state.password,
             confirmedPassword: this.state.confirmedPassword
-        }
-        axios.post("http://localhost:8080/register", {user})
-            .then(res => {
-                    console.log(res);
-                }
-            )
+        };
+
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/register',
+            data: user,
+            config: {headers: {'Content-Type': 'application/json'}}
+        })
+            .then((response) => {
+                window.location = './register/message'
+            })
+            .catch(error => {
+                this.displayErrorMessage(error.response)
+            });
+
+    }
+
+    displayErrorMessage(response) {
+        this.setState({
+            warning: response.data.message,
+            disabledWarning: {display: "block"}
+        });
     }
 
     render() {

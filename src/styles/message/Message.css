@@ -1,0 +1,24 @@
+.MessageBox{
+    background: white;
+    margin:0 auto;
+    width: 50%;
+    min-width: 400px;
+    border-radius:20px;
+    background: white;
+    border: 1px solid grey;
+    min-height: 100px;
+    margin-top: 300px;
+
+}
+
+.RegisterMessage{
+    text-align: center;
+    color: #44DE28;
+    font-weight: bold;
+    font-size:150%;
+    padding:30px;
+}
+
+.MessageBox a{
+padding: 1px;
+}

@@ -38,7 +38,7 @@ export default class LoginForm extends Component {
     return (
       <div className="login">
         <form onSubmit={this.handleSubmit}>
-          <FormGroup controlId="email" bsSize="large">
+          <FormGroup controlId="loginEmail" bsSize="large">
             <ControlLabel >Email</ControlLabel>
             <FormControl
               autoFocus
