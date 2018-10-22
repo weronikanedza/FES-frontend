@@ -4,8 +4,9 @@ import LoginForm from './user/LoginForm';
 import Register from './user/Register';
 import ResetPassword from './user/ResetPassword';
 import Home from './user/Home';
-import RegistrationConfirmation from '././message/RegistrationConfirmation.js';
-import RegistrationMessage from '././message/RegistrationMessage.js';
+import RegistrationConfirmation from '././message/RegistrationConfirmation';
+import RegistrationMessage from '././message/RegistrationMessage';
+import PrivateRoute from '././authentication/PrivateRoute'
 
 class App extends Component {
     render() {
