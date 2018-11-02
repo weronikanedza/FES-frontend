@@ -1,0 +1,36 @@
+.uploadFileBox {
+    display: block;
+    height: 500px;
+    background: white;
+    border: 1px solid grey;
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 100px;
+    border-radius: 20px;
+}
+
+.uploadFileTextBox {
+    text-align: center;
+    font-size: 150%;
+    border-bottom: 1px solid grey;
+}
+
+.uploadFileTextBox p {
+    margin-top: 16px;
+}
+
+.uploadFilePath {
+}
+
+.uploadFilePath input {
+    float: none;
+    display: block;
+    border: 1px solid white;
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 16px;
+}
+
+.uploadFileDrop {
+
+}

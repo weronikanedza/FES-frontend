@@ -1,7 +1,4 @@
 @media all and (min-width: 480px) {
-    body {
-        background-image: url('../../images/background.jpg');
-    }
     .registerForm {
         margin-top: 200px;
     }

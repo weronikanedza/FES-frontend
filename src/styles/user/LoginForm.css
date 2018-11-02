@@ -1,8 +1,8 @@
 @media all and (min-width: 480px) {
-    body{
-      background-image: url('../../images/background.jpg'); 
-    }
 
+body{
+    background-image: url('../../images/background.jpg');
+}
     #loginEmail{
     width: 378px;
     }

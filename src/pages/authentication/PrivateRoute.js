@@ -1,12 +1,14 @@
 import React, {Component} from "react";
-import {
-    BrowserRouter as Router,
-    Route,
-    Link,
-    Redirect,
-    withRouter
-} from 'react-router-dom'
+import {Redirect, Route} from "react-router-dom";
 
-export default class PrivateRoute extends Component {
-
-}
+export const PrivateRoute = (
+    {component: Component, ...rest}) => (
+    <Route
+        {...rest}
+        render={
+            props => localStorage.getItem("role") ? (
+                <Component {...props} />
+            ) : (<Redirect to={{pathname: "/login"}}/>)
+        }
+    />
+)

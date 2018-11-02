@@ -29,7 +29,7 @@ export default class LoginForm extends Component {
         this.setState({
             [event.target.id]: event.target.value
         });
-    }
+    };
 
     handleSubmit = event => {
         const loginData ={
@@ -43,15 +43,19 @@ export default class LoginForm extends Component {
             data: loginData,
             config: {headers: {'Content-Type': 'application/json'}}
         })
-            .then((response) => {
-                localStorage.setItem('role',response.data);
-                window.location = './'
+            .then(response => {
+                localStorage.setItem('role',response.data.role);
+                localStorage.setItem('firstName',response.data.firstName);
+                localStorage.setItem('lastName',response.data.lastName);
+                localStorage.setItem('id',response.data.id);
+                this.props.history.push("/user");
             })
+
             .catch(error => {
-                this.displayErrorMessage(error.response);
+               this.displayErrorMessage(error.response);
             });
         event.preventDefault();
-    }
+    };
 
     displayErrorMessage(response) {
         this.setState({
@@ -74,8 +78,8 @@ export default class LoginForm extends Component {
                         />
                     </FormGroup>
                     <FormGroup controlId="password" bsSize="large">
-                        <ControlLabel>Password</ControlLabel>
-                        <a href="./resetPassword"> Forget password ?</a>
+                        <ControlLabel>Hasło</ControlLabel>
+                        <a href="./resetPassword"> Zapomniałeś hasła ?</a>
                         <FormControl
                             value={this.state.password}
                             onChange={this.handleChange}
@@ -89,12 +93,12 @@ export default class LoginForm extends Component {
                         bsStyle="info"
                         type="submit"
                     >
-                        Sign in
+                        Zaloguj się
                     </Button>
 
 
                     <div className='register'>
-                        <span fontWeight="bold">If you do not have account </span>
+                        <span fontWeight="bold">Jeśli nie posiadasz konta </span>
 
                         <Button
                             block
@@ -103,7 +107,7 @@ export default class LoginForm extends Component {
                             className="btn btn-warning"
                             bsStyle="primary"
                         >
-                            Register
+                            Zarejestruj się
                         </Button>
                     </div>
                 </form>

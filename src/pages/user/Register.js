@@ -172,7 +172,7 @@ export default class Register extends Component {
                 <Form inline onSubmit={this.handleSubmit}>
                     <div className="groupPair">
                         <FormGroup controlId="firstName" bsSize="large">
-                            <ControlLabel>First Name</ControlLabel>
+                            <ControlLabel>Imię</ControlLabel>
                             <FormControl
                                 autoFocus
                                 type="text"
@@ -182,7 +182,7 @@ export default class Register extends Component {
                             />
                         </FormGroup>
                         <FormGroup controlId="lastName" bsSize="large">
-                            <ControlLabel>Last Name</ControlLabel>
+                            <ControlLabel>Nazwisko</ControlLabel>
                             <FormControl
                                 autoFocus
                                 type="text"
@@ -204,7 +204,7 @@ export default class Register extends Component {
                             />
                         </FormGroup>
                         <FormGroup controlId="dateOfBirth" bsSize="large">
-                            <ControlLabel>Date Of Birth</ControlLabel>
+                            <ControlLabel>Data urodzenia</ControlLabel>
                             <DatePicker
                                 selected={this.state.startDate}
                                 onChange={this.handleChangeDate}
@@ -214,7 +214,7 @@ export default class Register extends Component {
                     </div>
                     <div className="groupPair">
                         <FormGroup controlId="city" bsSize="large">
-                            <ControlLabel>City</ControlLabel>
+                            <ControlLabel>Miasto</ControlLabel>
                             <FormControl
                                 autoFocus
                                 type="text"
@@ -225,7 +225,7 @@ export default class Register extends Component {
                         </FormGroup>
 
                         <FormGroup controlId="Country" bsSize="large">
-                            <ControlLabel>Country</ControlLabel>
+                            <ControlLabel>Kraj</ControlLabel>
                             <Select required="required"
                                     options={this.state.options}
                                     value={this.state.value}
@@ -237,7 +237,7 @@ export default class Register extends Component {
                     </div>
                     <div className="groupPair">
                         <FormGroup controlId="password" bsSize="large">
-                            <ControlLabel>Password</ControlLabel>
+                            <ControlLabel>Hasło</ControlLabel>
                             <FormControl
                                 value={this.state.password}
                                 onChange={this.handleChange}
@@ -246,7 +246,7 @@ export default class Register extends Component {
                             />
                         </FormGroup>
                         <FormGroup controlId="confirmedPassword" bsSize="large">
-                            <ControlLabel>Confirm password</ControlLabel>
+                            <ControlLabel>Powtórz hasło</ControlLabel>
                             <FormControl
                                 value={this.state.confirmedPassword}
                                 onChange={this.handleChange}
@@ -261,7 +261,7 @@ export default class Register extends Component {
                         bsStyle="warning"
                         type="submit"
                     >
-                        Register
+                        Zarejestruj się
                     </Button>
 
                 </Form>
