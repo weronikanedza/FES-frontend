@@ -1,0 +1,12 @@
+.allFiles {
+   display: flex;
+}
+
+.fileBox{
+   margin: 10px;
+}
+
+.fileBox img{
+   width: 100px;
+   height: 100px;
+}

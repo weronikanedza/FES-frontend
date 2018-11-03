@@ -8,7 +8,7 @@ body{
     }
 
     .register{
-      margin-top: 10px;
+      margin-top: 20px;
       text-align: center;
     }
     
@@ -42,5 +42,10 @@ body{
         margin: 0 auto;
         padding: 20px;
     }
+
+    .login span{
+        margin-top:10px;
+    }
+
 
   }

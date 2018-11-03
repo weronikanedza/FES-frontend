@@ -7,6 +7,7 @@
     margin: 0 auto;
     margin-top: 100px;
     border-radius: 20px;
+    text-align: center;
 }
 
 .uploadFileTextBox {
@@ -19,9 +20,6 @@
     margin-top: 16px;
 }
 
-.uploadFilePath {
-}
-
 .uploadFilePath input {
     float: none;
     display: block;
@@ -31,6 +29,60 @@
     margin-top: 16px;
 }
 
-.uploadFileDrop {
+.uploadFileBox span {
+    font-weight: bold;
+    margin-top: 50px;
+}
 
+.uploadFileDrop {
+    display: block;
+    margin: 0 auto;
+    margin-top: 16px;
+}
+
+.dropzone {
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    width: 600px;
+    height: 250px;
+    border-width: 2px;
+    border-color: rgb(102, 102, 102);
+    border-style: dashed;
+    border-radius: 5px;
+}
+
+.uploadFileDrop span {
+    display: block;
+    margin: 0 auto;
+    margin-top: 90px;
+}
+
+.uploadFileBox button{
+   max-width: 400px;
+    margin-top:0px;
+}
+
+.btn.btn-block{
+    margin-top: 20px;
+}
+
+.fileName{
+    color: #44DE28;
+    font-weight: bold;
+}
+
+.warningUploadFile {
+    clear: both;
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    font-size: 125%;
+    border-radius: 10px;
+    border: 1px solid grey;
+    background: white;
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top:20px;
 }

@@ -46,7 +46,7 @@
     label {
         min-width: 130px;
     }
-    button {
+    .registerForm button {
         max-width: 800px;
     }
 

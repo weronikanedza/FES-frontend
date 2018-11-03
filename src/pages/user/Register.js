@@ -85,7 +85,7 @@ export default class Register extends Component {
             return true;
         } else {
             this.setState({
-                warning: "Your passwords are not the same",
+                warning: "Hasła są różne",
                 disabledWarning: {display: "block"}
             });
             return false;
@@ -97,7 +97,7 @@ export default class Register extends Component {
             return true;
         } else {
             this.setState({
-                warning: "Your password should have : one upper case letter, one lower case letter, one digit, minimum eight characters",
+                warning: "Twoje hasło powinno zawierać co najmniej jedną większą literę, jedną mniejszą literę, cyfrę oraz posiadać 8 znaków",
                 disabledWarning: {display: "block"}
             });
         }
@@ -117,7 +117,7 @@ export default class Register extends Component {
         const day = this.state.startDate.day();
         const month = this.state.startDate.month();
         const year = this.state.startDate.year();
-        return this.validate(new Date(year + 18, month - 1, day) <= new Date(), "You are not adult");
+        return this.validate(new Date(year + 18, month - 1, day) <= new Date(), "Nie jesteś pełnoletni");
     }
 
     validate(condition, message) {
