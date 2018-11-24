@@ -1,12 +1,36 @@
 .allFiles {
    display: flex;
+   flex-wrap: wrap;
 }
 
 .fileBox{
    margin: 10px;
+   max-width: 120px;
+      max-height: 120px;
+   justify-content:space-between;
 }
 
 .fileBox img{
+
+}
+
+.fileBox a{
+   text-decoration: none;
+   color: black;
+}
+
+.fileBox-label {
    width: 100px;
-   height: 100px;
+   overflow:hidden;
+   white-space:nowrap;
+   text-overflow: ellipsis;
+}
+
+.delete-modal-box-buttons {
+   display: flex;
+}
+
+.delete-modal-box-button{
+   padding: 0px;
+   margin: 0px;
 }
