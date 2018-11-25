@@ -19,7 +19,6 @@ export default class File extends Component {
 
     }
 
-
     componentWillMount() {
         this.setState({
                 isComponent: true
@@ -49,13 +48,6 @@ export default class File extends Component {
         this.setState({imagePath: fileType})
 
     }
-
-
-    handleClick = (e, data) => {
-        console.log(e, data);
-    };
-
-
 
     render() {
         return (

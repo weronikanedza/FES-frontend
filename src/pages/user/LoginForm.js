@@ -48,6 +48,7 @@ export default class LoginForm extends Component {
                 localStorage.setItem('firstName',response.data.firstName);
                 localStorage.setItem('lastName',response.data.lastName);
                 localStorage.setItem('id',response.data.id);
+                localStorage.setItem('filesType','ALL');
                 this.props.history.push("/user");
             })
 

@@ -34,3 +34,18 @@
    padding: 0px;
    margin: 0px;
 }
+
+.modal-email-share{
+   width: 97%;
+   display: block;
+   text-align: center;
+   margin-left: 10px;
+}
+
+.help-modal {
+   margin-left: 10px;
+}
+
+.share-modal-label {
+   margin-left: 10px;
+}

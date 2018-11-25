@@ -3,8 +3,8 @@ import "../../styles/user/AllFiles.css"
 import axios from "axios";
 import Modal from 'react-modal';
 import File from "./File";
-import {deleteModalStyle, customStyles, buttonStyle} from "../../styles/modalStyle";
-import {Button} from "react-bootstrap";
+import {  modalStyle} from "../../styles/modalStyle";
+import {Button, ControlLabel, FormControl, HelpBlock} from "react-bootstrap";
 
 export default class AllFiles extends Component {
     constructor(props) {
@@ -15,7 +15,10 @@ export default class AllFiles extends Component {
             shareModalIsOpen: false,
             deleteModalIsOpen: false,
             detailsModalIsOpen: false,
-            currentFile: ''
+            currentFile: '',
+            email:'',
+            errorMessage:'',
+            helpColor: 'green'
         };
 
         this.openDeleteModal = this.openDeleteModal.bind(this);
@@ -26,13 +29,25 @@ export default class AllFiles extends Component {
         this.closeShareModal = this.closeShareModal.bind(this);
         this.closeDetailsModal = this.closeDetailsModal.bind(this);
 
-        this.deleteFile = this.deleteFile.bind(this);
+        this.handleChange = this.handleChange.bind(this);
 
-        this.afterOpenModal = this.afterOpenModal.bind(this);
+        this.deleteFile = this.deleteFile.bind(this);
+        this.shareFile = this.shareFile.bind(this);
     }
 
     componentWillMount() {
-        this.postData(localStorage.getItem('id'), 'getAllFiles');
+        const filesType=localStorage.getItem('filesType');
+        let postUrl='';
+
+        switch (filesType){
+            case 'ALL' : postUrl = "getAllFiles";
+            break;
+            case 'USER': postUrl = 'getAllFilesAddedByUser';
+            break;
+            case 'SHARED': postUrl = 'getAllSharedFiles';
+        }
+
+        this.postData(localStorage.getItem('id'), postUrl);
     }
 
     postData(data, path) {
@@ -43,7 +58,6 @@ export default class AllFiles extends Component {
             config: {headers: {'Content-Type': 'application/json'}}
         })
             .then(response => {
-                console.log(response.data)
                 this.setState({files: response.data})
             })
             .catch(error => {
@@ -84,25 +98,26 @@ export default class AllFiles extends Component {
         });
     }
 
-    openShareModal() {
-        this.setState({shareModalIsOpen: true});
+    openShareModal(index) {
+        this.setState({shareModalIsOpen: true,
+            currentFile: this.state.files[index]});
     }
 
     openDetailsModal() {
         this.setState({detailsModalIsOpen: true});
     }
 
-    afterOpenModal() {
-        // references are now sync'd and can be accessed.
-        // this.subtitle.style.color = '#f00';
-    }
+
 
     closeDeleteModal() {
         this.setState({deleteModalIsOpen: false});
     }
 
     closeShareModal() {
-        this.setState({shareModalIsOpen: false});
+        this.setState({shareModalIsOpen: false,
+                        errorMessage:'',
+                        email: ''
+                        });
     }
 
     closeDetailsModal() {
@@ -110,11 +125,15 @@ export default class AllFiles extends Component {
     }
 
     deleteFile() {
+        let data = new FormData();
+        data.set('fileId',this.state.currentFile.id);
+        data.set('userId',localStorage.getItem('id'));
+
         this.closeDeleteModal();
         axios({
             method: 'post',
             url: 'http://localhost:8080/deleteFile',
-            data: this.state.currentFile.id
+            data: data
         })
             .then(response => {
                 window.location.reload();
@@ -124,8 +143,75 @@ export default class AllFiles extends Component {
             });
     }
 
+    shareFile (event) {
+     //   this.closeShareModal();
+        event.preventDefault();
+        let data = new FormData();
+
+        data.append('id',this.state.currentFile.id);
+        data.append('email', this.state.email);
+
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/shareFile',
+            data: data
+        })
+            .then(response => {
+                this.setState({
+                    errorMessage: 'Plik został udostępniony',
+                    helpColor: 'green'
+                })
+            })
+            .catch(error => {
+                this.setState({
+                    errorMessage: error.response.data.message,
+                    helpColor: 'red'
+                })
+            });
+    }
+
+    handleChange(e) {
+        this.setState({ email: e.target.value });
+    }
+
+    renderButtons = (button1Value,button2Value,function1,function2) => {
+        return(
+            <div className="delete-modal-box-buttons">
+                <Button
+                    block
+                    bsSize="large"
+                    style={{
+                        padding: '10px',
+                        margin: '10px'
+                    }
+                    }
+                    bsStyle="warning"
+                    className="delete-modal-box-button"
+                    onClick={function1}
+                >
+                    {button1Value}
+                </Button>
+                <Button
+                    block
+                    bsSize="large"
+                    style={{
+                        padding: '10px',
+                        margin: '10px'
+                    }
+                    }
+                    bsStyle="info"
+                    type="submit"
+                    onClick={function2}
+                >
+                    {button2Value}
+                </Button>
+            </div>
+        )
+    };
+
     render() {
-        return (<div className="allFiles">
+        return (
+            <div className="allFiles">
             {this.state.files.map((file, index) => {
                 return (
                     <File
@@ -144,67 +230,40 @@ export default class AllFiles extends Component {
 
             <Modal
                 isOpen={this.state.deleteModalIsOpen}
-                onAfterOpen={this.afterOpenModal}
-                onRequestClose={this.closeDeleteModal}
-                style={deleteModalStyle}
-                contentLabel="Example Modal"
+                style={modalStyle}
             >
                 <div className="deleteModalContent">
                     Jesteś pewien że chcesz usunąć plik ?
                 </div>
-                <div className="delete-modal-box-buttons">
-                    <Button
-                        block
-                        bsSize="large"
-                        style={{
-                            padding: '10px',
-                            margin: '10px'
-                        }
-                        }
-                        bsStyle="warning"
-                        className="delete-modal-box-button"
-                        onClick={this.closeDeleteModal}
-                    >
-                        NIE
-                    </Button>
-                    <Button
-                        block
-                        bsSize="large"
-                        style={{
-                            padding: '10px',
-                            margin: '10px'
-                        }
-                        }
-                        bsStyle="info"
-                        type="submit"
-                        onClick={this.deleteFile}
-                    >
-                        TAK
-                    </Button>
-                </div>
+                {this.renderButtons('NIE','TAK',this.closeDeleteModal,this.deleteFile)}
 
             </Modal>
 
-            {/*<Modal*/}
-            {/*isOpen={this.state.shareModalIsOpen}*/}
-            {/*onAfterOpen={this.afterOpenModal}*/}
-            {/*onRequestClose={this.closeDeleteModal}*/}
-            {/*style={deleteModalStyle}*/}
-            {/*contentLabel="Example Modal"*/}
-            {/*>*/}
+            <Modal
+            isOpen={this.state.shareModalIsOpen}
+            style={modalStyle}
+            >
+                <form>
+                        <ControlLabel className="share-modal-label">Podaj email użytkownika któremu chcesz udostępnić plik</ControlLabel>
+                        <FormControl
+                            className={"modal-email-share"}
+                            type="email"
+                            value={this.state.email}
+                            placeholder="Email"
+                            onChange={this.handleChange}
+                            required
+                        />
+                        <FormControl.Feedback />
+                    <div style={{clear: 'both'}}/>
+                        <span className="help-modal" style={{ display : this.state.errorMessage ? 'block' : 'none'}}>
+                        <HelpBlock style={{color:this.state.helpColor}}>{this.state.errorMessage}</HelpBlock>
+                        </span>
+                    {this.renderButtons('ZAMKNIJ','UDOSTĘPNIJ',this.closeShareModal,this.shareFile)}
+                </form>
 
-            {/*<h2 ref={subtitle => this.subtitle = subtitle}>Hello</h2>*/}
-            {/*<button onClick={this.closeDeleteModal}>close</button>*/}
-            {/*<div>I am a modal</div>*/}
-            {/*<form>*/}
-            {/*<input/>*/}
-            {/*<button>tab navigation</button>*/}
-            {/*<button>stays</button>*/}
-            {/*<button>inside</button>*/}
-            {/*<button>the modal</button>*/}
-            {/*</form>*/}
-            {/*</Modal>*/}
+            </Modal>
 
-        </div>);
+        </div>
+        );
     }
 }

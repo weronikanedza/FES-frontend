@@ -15,20 +15,20 @@ import {
         DropdownItem } from 'reactstrap';
 
 
-export default class Header extends React.Component {
+export default class Header extends Component {
     constructor(props) {
         super(props);
 
         this.toggle = this.toggle.bind(this);
-        this.addFileRedirect=this.addFileRedirect.bind(this);
         this.signOut=this.signOut.bind(this);
+        this.renderMyFiles=this.renderMyFiles.bind(this);
 
         const fullName = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
 
         this.state = {
             isOpen: false,
             name: fullName,
-            redirect: false
+            redirect: ''
         };
     }
     toggle() {
@@ -39,12 +39,44 @@ export default class Header extends React.Component {
 
     setRedirect = () => {
         this.setState({
-            redirect: true
+            redirect: 'uploadFile'
         })
     };
+
+    setAllFilesRedirect= () => {
+        localStorage.setItem('filesType','ALL');
+        this.setMainRedirect();
+        window.location.reload();
+    };
+
+    setUserFilesRedirect= () => {
+        localStorage.setItem('filesType','USER');
+        this.setMainRedirect();
+        window.location.reload();
+    };
+
+    setSharedFilesRedirect= () => {
+        localStorage.setItem('filesType','SHARED');
+        this.setMainRedirect();
+        window.location.reload();
+    };
+
+    setMainRedirect = () => {
+        this.setState({
+            redirect: 'user'
+        })
+    };
+
     renderRedirect = () => {
-        if (this.state.redirect) {
-            return <Redirect to='/user/uploadFile'/>
+
+        switch (this.state.redirect){
+            case 'uploadFile':
+                return <Redirect to='/user/uploadFile'/>;
+                break;
+            case 'user':
+                return <Redirect to='/user'/>;
+            default:
+                break;
         }
     };
 
@@ -53,10 +85,10 @@ export default class Header extends React.Component {
         window.location="/login";
     }
 
-    addFileRedirect(){
-        this.props.history.push('/uploadFile');
-    }
 
+    renderMyFiles(){
+        this.props.history.push('/user');
+    }
     render() {
         return (
             <div>
@@ -67,7 +99,7 @@ export default class Header extends React.Component {
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <NavItem>
-                                <NavLink href="/user">Strona główna</NavLink>
+                                <NavLink onClick={this.setAllFilesRedirect}>Strona główna</NavLink>
                             </NavItem>
                             <UncontrolledDropdown nav inNavbar>
                                 <DropdownToggle nav caret>
@@ -87,11 +119,11 @@ export default class Header extends React.Component {
                                     Menu
                                 </DropdownToggle>
                                 <DropdownMenu right>
-                                    <DropdownItem onClick={this.function}>
+                                    <DropdownItem onClick={this.setUserFilesRedirect}>
                                         Moje pliki
                                     </DropdownItem>
-                                    <DropdownItem>
-                                        Udostępnione pliki
+                                    <DropdownItem onClick={this.setSharedFilesRedirect}>
+                                        Udostępnione mi pliki
                                     </DropdownItem>
                                     <DropdownItem divider />
                                     <DropdownItem onClick={this.setRedirect}>
