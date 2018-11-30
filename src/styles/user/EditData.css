@@ -1,0 +1,27 @@
+.editDataForm {
+    background: white;
+    width: 800px;
+    border-radius: 20px;
+    margin: auto;
+    margin-top: 150px;
+    border: 1px solid #CED4DA;
+}
+
+.inputStyle{
+    margin: 10px;
+    width: 355px;
+}
+
+.inputDate{
+    margin: 0px;
+    border-radius: 5px;
+    width: 355px;
+}
+
+.inputSelect{
+    width: 355px;
+}
+
+.edit-data-form-box{
+    margin: 20px;
+}

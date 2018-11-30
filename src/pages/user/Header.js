@@ -1,18 +1,19 @@
-import React, { Component } from "react";
-import { Redirect } from 'react-router-dom'
+import React, {Component} from "react";
+import {Redirect} from 'react-router-dom'
 
 import {
     Collapse,
-        Navbar,
-        NavbarToggler,
-        NavbarBrand,
-        Nav,
-        NavItem,
-        NavLink,
-        UncontrolledDropdown,
-        DropdownToggle,
-        DropdownMenu,
-        DropdownItem } from 'reactstrap';
+    Navbar,
+    NavbarToggler,
+    NavbarBrand,
+    Nav,
+    NavItem,
+    NavLink,
+    UncontrolledDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem
+} from 'reactstrap';
 
 
 export default class Header extends Component {
@@ -20,8 +21,7 @@ export default class Header extends Component {
         super(props);
 
         this.toggle = this.toggle.bind(this);
-        this.signOut=this.signOut.bind(this);
-        this.renderMyFiles=this.renderMyFiles.bind(this);
+        this.signOut = this.signOut.bind(this);
 
         const fullName = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
 
@@ -31,6 +31,7 @@ export default class Header extends Component {
             redirect: ''
         };
     }
+
     toggle() {
         this.setState({
             isOpen: !this.state.isOpen
@@ -43,22 +44,34 @@ export default class Header extends Component {
         })
     };
 
-    setAllFilesRedirect= () => {
-        localStorage.setItem('filesType','ALL');
+    setAllFilesRedirect = () => {
+        localStorage.setItem('filesType', 'ALL');
         this.setMainRedirect();
         window.location.reload();
     };
 
-    setUserFilesRedirect= () => {
-        localStorage.setItem('filesType','USER');
+    setUserFilesRedirect = () => {
+        localStorage.setItem('filesType', 'USER');
         this.setMainRedirect();
         window.location.reload();
     };
 
-    setSharedFilesRedirect= () => {
-        localStorage.setItem('filesType','SHARED');
+    setSharedFilesRedirect = () => {
+        localStorage.setItem('filesType', 'SHARED');
         this.setMainRedirect();
         window.location.reload();
+    };
+
+    setEditDataRedirect = () => {
+        this.setState({
+            redirect: 'editData'
+        })
+    };
+
+    setChangePasswordRedirect = () => {
+        this.setState({
+            redirect: 'changePassword'
+        })
     };
 
     setMainRedirect = () => {
@@ -68,34 +81,37 @@ export default class Header extends Component {
     };
 
     renderRedirect = () => {
-
-        switch (this.state.redirect){
+        switch (this.state.redirect) {
             case 'uploadFile':
                 return <Redirect to='/user/uploadFile'/>;
                 break;
             case 'user':
                 return <Redirect to='/user'/>;
+                break;
+            case 'editData':
+                return <Redirect to='/editData'/>;
+                break;
+            case 'changePassword':
+                return <Redirect to='/changePassword'/>;
+                break;
             default:
                 break;
         }
     };
 
-    signOut(){
+    signOut() {
         localStorage.clear();
-        window.location="/login";
+        window.location = "/login";
     }
 
 
-    renderMyFiles(){
-        this.props.history.push('/user');
-    }
     render() {
         return (
             <div>
                 {this.renderRedirect()}
-                <Navbar color="light" light expand="md">
-                    <NavbarBrand >{this.state.name}</NavbarBrand>
-                    <NavbarToggler onClick={this.toggle} />
+                <Navbar className="navbar" light expand="md">
+                    <NavbarBrand>{this.state.name}</NavbarBrand>
+                    <NavbarToggler onClick={this.toggle}/>
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <NavItem>
@@ -106,10 +122,10 @@ export default class Header extends Component {
                                     Moje konto
                                 </DropdownToggle>
                                 <DropdownMenu right>
-                                    <DropdownItem>
+                                    <DropdownItem  onClick={this.setEditDataRedirect}>
                                         Edytuj dane
                                     </DropdownItem>
-                                    <DropdownItem>
+                                    <DropdownItem onClick={this.setChangePasswordRedirect}>
                                         Zmień hasło
                                     </DropdownItem>
                                 </DropdownMenu>
@@ -125,7 +141,7 @@ export default class Header extends Component {
                                     <DropdownItem onClick={this.setSharedFilesRedirect}>
                                         Udostępnione mi pliki
                                     </DropdownItem>
-                                    <DropdownItem divider />
+                                    <DropdownItem divider/>
                                     <DropdownItem onClick={this.setRedirect}>
                                         Dodaj plik
                                     </DropdownItem>

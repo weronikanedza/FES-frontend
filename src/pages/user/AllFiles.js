@@ -3,7 +3,7 @@ import "../../styles/user/AllFiles.css"
 import axios from "axios";
 import Modal from 'react-modal';
 import File from "./File";
-import {  modalStyle} from "../../styles/modalStyle";
+import {modalStyle} from "../../styles/modalStyle";
 import {Button, ControlLabel, FormControl, HelpBlock} from "react-bootstrap";
 
 export default class AllFiles extends Component {
@@ -16,8 +16,8 @@ export default class AllFiles extends Component {
             deleteModalIsOpen: false,
             detailsModalIsOpen: false,
             currentFile: '',
-            email:'',
-            errorMessage:'',
+            email: '',
+            errorMessage: '',
             helpColor: 'green'
         };
 
@@ -36,15 +36,18 @@ export default class AllFiles extends Component {
     }
 
     componentWillMount() {
-        const filesType=localStorage.getItem('filesType');
-        let postUrl='';
+        const filesType = localStorage.getItem('filesType');
+        let postUrl = '';
 
-        switch (filesType){
-            case 'ALL' : postUrl = "getAllFiles";
-            break;
-            case 'USER': postUrl = 'getAllFilesAddedByUser';
-            break;
-            case 'SHARED': postUrl = 'getAllSharedFiles';
+        switch (filesType) {
+            case 'ALL' :
+                postUrl = "getAllFiles";
+                break;
+            case 'USER':
+                postUrl = 'getAllFilesAddedByUser';
+                break;
+            case 'SHARED':
+                postUrl = 'getAllSharedFiles';
         }
 
         this.postData(localStorage.getItem('id'), postUrl);
@@ -61,7 +64,7 @@ export default class AllFiles extends Component {
                 this.setState({files: response.data})
             })
             .catch(error => {
-                //      this.displayWarning(error.response.data.message, "red");
+                alert('Spróbuj ponownie')
             });
     };
 
@@ -86,7 +89,7 @@ export default class AllFiles extends Component {
                 link.click();
             })
             .catch(error => {
-                //      this.displayWarning(error.response.data.message, "red");
+                alert('Spróbuj ponownie')
             });
     }
 
@@ -99,14 +102,18 @@ export default class AllFiles extends Component {
     }
 
     openShareModal(index) {
-        this.setState({shareModalIsOpen: true,
-            currentFile: this.state.files[index]});
+        this.setState({
+            shareModalIsOpen: true,
+            currentFile: this.state.files[index]
+        });
     }
 
-    openDetailsModal() {
-        this.setState({detailsModalIsOpen: true});
+    openDetailsModal(index) {
+        this.setState({
+            detailsModalIsOpen: true,
+            currentFile: this.state.files[index]
+        });
     }
-
 
 
     closeDeleteModal() {
@@ -114,10 +121,11 @@ export default class AllFiles extends Component {
     }
 
     closeShareModal() {
-        this.setState({shareModalIsOpen: false,
-                        errorMessage:'',
-                        email: ''
-                        });
+        this.setState({
+            shareModalIsOpen: false,
+            errorMessage: '',
+            email: ''
+        });
     }
 
     closeDetailsModal() {
@@ -126,8 +134,8 @@ export default class AllFiles extends Component {
 
     deleteFile() {
         let data = new FormData();
-        data.set('fileId',this.state.currentFile.id);
-        data.set('userId',localStorage.getItem('id'));
+        data.set('fileId', this.state.currentFile.id);
+        data.set('userId', localStorage.getItem('id'));
 
         this.closeDeleteModal();
         axios({
@@ -139,16 +147,15 @@ export default class AllFiles extends Component {
                 window.location.reload();
             })
             .catch(error => {
-               alert('Spróbuj ponownie');
+                alert('Spróbuj ponownie');
             });
     }
 
-    shareFile (event) {
-     //   this.closeShareModal();
+    shareFile(event) {
         event.preventDefault();
         let data = new FormData();
 
-        data.append('id',this.state.currentFile.id);
+        data.append('id', this.state.currentFile.id);
         data.append('email', this.state.email);
 
         axios({
@@ -171,11 +178,11 @@ export default class AllFiles extends Component {
     }
 
     handleChange(e) {
-        this.setState({ email: e.target.value });
+        this.setState({email: e.target.value});
     }
 
-    renderButtons = (button1Value,button2Value,function1,function2) => {
-        return(
+    renderButtons = (button1Value, button2Value, function1, function2) => {
+        return (
             <div className="delete-modal-box-buttons">
                 <Button
                     block
@@ -212,39 +219,40 @@ export default class AllFiles extends Component {
     render() {
         return (
             <div className="allFiles">
-            {this.state.files.map((file, index) => {
-                return (
-                    <File
-                        key={index}
-                        id={file.id}
-                        fileName={file.fileName}
-                        fileType={file.fileType}
-                        filePath={file.filePath}
-                        download={this.download.bind(this, index)}
-                        openDeleteModal={this.openDeleteModal.bind(this, index)}
-                        openShareModal={this.openShareModal.bind(this, index)}
-                        openDetailsModal={this.openDetailsModal.bind(this, index)}
-                    />
-                )
-            })}
+                {this.state.files.map((file, index) => {
+                    return (
+                        <File
+                            key={index}
+                            id={file.id}
+                            fileName={file.fileName}
+                            fileType={file.fileType}
+                            filePath={file.filePath}
+                            download={this.download.bind(this, index)}
+                            openDeleteModal={this.openDeleteModal.bind(this, index)}
+                            openShareModal={this.openShareModal.bind(this, index)}
+                            openDetailsModal={this.openDetailsModal.bind(this, index)}
+                        />
+                    )
+                })}
 
-            <Modal
-                isOpen={this.state.deleteModalIsOpen}
-                style={modalStyle}
-            >
-                <div className="deleteModalContent">
-                    Jesteś pewien że chcesz usunąć plik ?
-                </div>
-                {this.renderButtons('NIE','TAK',this.closeDeleteModal,this.deleteFile)}
+                <Modal
+                    isOpen={this.state.deleteModalIsOpen}
+                    style={modalStyle}
+                >
+                    <div className="deleteModalContent">
+                        Jesteś pewien że chcesz usunąć plik ?
+                    </div>
+                    {this.renderButtons('NIE', 'TAK', this.closeDeleteModal, this.deleteFile)}
 
-            </Modal>
+                </Modal>
 
-            <Modal
-            isOpen={this.state.shareModalIsOpen}
-            style={modalStyle}
-            >
-                <form>
-                        <ControlLabel className="share-modal-label">Podaj email użytkownika któremu chcesz udostępnić plik</ControlLabel>
+                <Modal
+                    isOpen={this.state.shareModalIsOpen}
+                    style={modalStyle}
+                >
+                    <form>
+                        <ControlLabel className="share-modal-label">Podaj email użytkownika któremu chcesz udostępnić
+                            plik</ControlLabel>
                         <FormControl
                             className={"modal-email-share"}
                             type="email"
@@ -253,17 +261,43 @@ export default class AllFiles extends Component {
                             onChange={this.handleChange}
                             required
                         />
-                        <FormControl.Feedback />
-                    <div style={{clear: 'both'}}/>
-                        <span className="help-modal" style={{ display : this.state.errorMessage ? 'block' : 'none'}}>
-                        <HelpBlock style={{color:this.state.helpColor}}>{this.state.errorMessage}</HelpBlock>
+                        <FormControl.Feedback/>
+                        <div style={{clear: 'both'}}/>
+                        <span className="help-modal" style={{display: this.state.errorMessage ? 'block' : 'none'}}>
+                        <HelpBlock style={{color: this.state.helpColor}}>{this.state.errorMessage}</HelpBlock>
                         </span>
-                    {this.renderButtons('ZAMKNIJ','UDOSTĘPNIJ',this.closeShareModal,this.shareFile)}
-                </form>
+                        {this.renderButtons('ZAMKNIJ', 'UDOSTĘPNIJ', this.closeShareModal, this.shareFile)}
+                    </form>
 
-            </Modal>
+                </Modal>
+                <Modal
+                    isOpen={this.state.detailsModalIsOpen}
+                    style={modalStyle}
+                >
+                    <form>
+                        <span className="detail-label">Szczegóły o pliku: </span>
+                        <br/>
+                        <span className="detail-label">Nazwa: </span> {this.state.currentFile.fileName}
+                        <br/>
+                        <span className="detail-label">Typ pliku: </span> {this.state.currentFile.fileType}
+                        <br/>
+                        <span className="detail-label">Data edycji pliku: </span> {this.state.currentFile.date}
+                        <br/>
+                        <FormControl.Feedback/>
 
-        </div>
+                        <Button style={
+                            {
+                                width: '100%',
+                                margin: '0px'
+                            }
+                        }
+                                bsStyle="info"
+                                onClick={this.closeDetailsModal}> ZAMKNIJ </Button>
+                    </form>
+
+                </Modal>
+
+            </div>
         );
     }
 }

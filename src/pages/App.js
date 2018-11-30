@@ -8,15 +8,19 @@ import RegistrationConfirmation from '././message/RegistrationConfirmation';
 import RegistrationMessage from '././message/RegistrationMessage';
 import {PrivateRoute} from '././authentication/PrivateRoute';
 import UploadFileForm from "./user/UploadFileForm";
+import EditData from "./user/EditData";
+import ChangePassword from "./user/ChangePassword";
 
 class App extends Component {
     render() {
         return (
             <Router>
                 <div>
-                    <PrivateRoute exact path="/"/>
+                    <PrivateRoute exact path="/" component={User}/>
                     <PrivateRoute exact path="/user" component={User}/>
                     <PrivateRoute exact path="/user/uploadFile" component={UploadFileForm} />
+                    <PrivateRoute exact path="/editData" component={EditData}/>
+                    <PrivateRoute exact path="/changePassword" component={ChangePassword}/>
                     <Route exact path="/login" component={LoginForm}/>
                     <Route exact path="/register" component={Register}/>
                     <Route exact path="/register/message" component={RegistrationMessage}/>

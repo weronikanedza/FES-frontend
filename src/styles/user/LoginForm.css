@@ -1,32 +1,41 @@
 @media all and (min-width: 480px) {
 
-body{
-    background-image: url('../../images/background.jpg');
-}
-    #loginEmail{
-    width: 378px;
+    body {
+        margin: 0;
     }
 
-    .register{
-      margin-top: 20px;
-      text-align: center;
+    .bodyBox {
+        background-image: url('../../images/background.jpg');
+        min-height: 100%;
+        min-width: 1024px;
+        width: 100%;
+        position: fixed;
     }
-    
-    .login{
-      margin-top:100px;
+
+    #loginEmail {
+        width: 378px;
     }
-  
+
+    .register {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .login {
+        margin-top: 100px;
+    }
+
     .login form {
-      padding: 50px 10px;
-      margin: 0 auto;
-      max-width: 400px;
-      border-radius:20px; 
-      background: white;
-      border: 1px solid grey;
+        padding: 50px 10px;
+        margin: 0 auto;
+        max-width: 400px;
+        border-radius: 20px;
+        background: white;
+        border: 1px solid grey;
     }
 
-    .login form a{
-      float: right;
+    .login form a {
+        float: right;
     }
 
     .loginWarning {
@@ -43,9 +52,8 @@ body{
         padding: 20px;
     }
 
-    .login span{
-        margin-top:10px;
+    .login span {
+        margin-top: 10px;
     }
 
-
-  }
+}

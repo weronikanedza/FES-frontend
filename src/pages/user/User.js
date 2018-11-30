@@ -10,6 +10,8 @@ export default class User extends Component {
     render() {
         return (<div>
             <Header/>
+            <div className="change-password">
+            </div>
             <AllFiles/>
         </div>);
     }

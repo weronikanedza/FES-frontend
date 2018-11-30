@@ -49,3 +49,15 @@
 .share-modal-label {
    margin-left: 10px;
 }
+
+.navbar{
+    background-color: #20a0ff;
+    color: white;
+}
+
+.detail-label{
+    font-weight: bold;
+}
+.details-button{
+    background-color: #20A0FF;
+}

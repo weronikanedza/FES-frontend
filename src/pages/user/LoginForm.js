@@ -32,7 +32,7 @@ export default class LoginForm extends Component {
     };
 
     handleSubmit = event => {
-        const loginData ={
+        const loginData = {
             email: this.state.loginEmail,
             password: this.state.password
         };
@@ -44,16 +44,16 @@ export default class LoginForm extends Component {
             config: {headers: {'Content-Type': 'application/json'}}
         })
             .then(response => {
-                localStorage.setItem('role',response.data.role);
-                localStorage.setItem('firstName',response.data.firstName);
-                localStorage.setItem('lastName',response.data.lastName);
-                localStorage.setItem('id',response.data.id);
-                localStorage.setItem('filesType','ALL');
+                localStorage.setItem('role', response.data.role);
+                localStorage.setItem('firstName', response.data.firstName);
+                localStorage.setItem('lastName', response.data.lastName);
+                localStorage.setItem('id', response.data.id);
+                localStorage.setItem('filesType', 'ALL');
                 this.props.history.push("/user");
             })
 
             .catch(error => {
-               this.displayErrorMessage(error.response);
+                this.displayErrorMessage(error.response);
             });
         event.preventDefault();
     };
@@ -67,59 +67,59 @@ export default class LoginForm extends Component {
 
     render() {
         return (
-            <div className="login">
-                <form onSubmit={this.handleSubmit}>
-                    <FormGroup controlId="loginEmail" bsSize="large">
-                        <ControlLabel>Email</ControlLabel>
-                        <FormControl
-                            autoFocus
-                            type="text"
-                            value={this.state.email}
-                            onChange={this.handleChange}
-                        />
-                    </FormGroup>
-                    <FormGroup controlId="password" bsSize="large">
-                        <ControlLabel>Hasło</ControlLabel>
-                        <a href="./resetPassword"> Zapomniałeś hasła ?</a>
-                        <FormControl
-                            value={this.state.password}
-                            onChange={this.handleChange}
-                            type="password"
-                        />
-                    </FormGroup>
-                    <Button
-                        block
-                        bsSize="large"
-                        disabled={!this.validateForm()}
-                        bsStyle="info"
-                        type="submit"
-                    >
-                        Zaloguj się
-                    </Button>
-
-
-                    <div className='register'>
-                        <span fontWeight="bold">Jeśli nie posiadasz konta </span>
-
+            <div className="bodyBox">
+                <div className="login">
+                    <form onSubmit={this.handleSubmit}>
+                        <FormGroup controlId="loginEmail" bsSize="large">
+                            <ControlLabel>Email</ControlLabel>
+                            <FormControl
+                                autoFocus
+                                type="text"
+                                value={this.state.email}
+                                onChange={this.handleChange}
+                            />
+                        </FormGroup>
+                        <FormGroup controlId="password" bsSize="large">
+                            <ControlLabel>Hasło</ControlLabel>
+                            <a href="./resetPassword"> Zapomniałeś hasła ?</a>
+                            <FormControl
+                                value={this.state.password}
+                                onChange={this.handleChange}
+                                type="password"
+                            />
+                        </FormGroup>
                         <Button
                             block
                             bsSize="large"
-                            onClick={this.handleClick}
-                            className="btn btn-warning"
-                            bsStyle="primary"
+                            disabled={!this.validateForm()}
+                            bsStyle="info"
+                            type="submit"
                         >
-                            Zarejestruj się
+                            Zaloguj się
                         </Button>
-                    </div>
-                </form>
 
-                <div className="space"></div>
-                <div className="loginWarning" style={this.state.disabledWarning}>
-                    {this.state.warning}
+
+                        <div className='register'>
+                            <span fontWeight="bold">Jeśli nie posiadasz konta </span>
+
+                            <Button
+                                block
+                                bsSize="large"
+                                onClick={this.handleClick}
+                                className="btn btn-warning"
+                                bsStyle="primary"
+                            >
+                                Zarejestruj się
+                            </Button>
+                        </div>
+                    </form>
+
+                    <div className="space"></div>
+                    <div className="loginWarning" style={this.state.disabledWarning}>
+                        {this.state.warning}
+                    </div>
                 </div>
             </div>
-
-
         );
     }
 }
