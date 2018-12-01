@@ -10,3 +10,8 @@ export const modalStyle = {
     }
 };
 
+export const resetPasswordButtonStyle = {
+    margin: '0',
+    padding: '10px',
+    width: '100%'
+};

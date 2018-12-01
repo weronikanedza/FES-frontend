@@ -1,28 +1,51 @@
-// import axios from "axios";
-//
-// export function sendFile() {
-//     axios({
-//         method: 'post',
-//         url: 'http://localhost:8080/login',
-//         data: loginData,
-//         config: {headers: {'Content-Type': 'application/json'}}
-//     })
-//         .then(response => {
-//           handleResponse()
-//         })
-//
-//         .catch(error => {
-//             displayErrorMessage(error.response);
-//         });
-// }
-//
-// export function handleResponse() {
-//
-// }
-//
-export function displayErrorMessage(response) {
-    this.setState({
-        warning: response.data.message,
-        disabledWarning: {display: "block"}
+ import axios from "axios";
+
+export function postAxios(context,data,url,handleResponse,handleError) {
+    axios({
+        method: 'post',
+        url: `http://localhost:8080/${url}`,
+        data: data,
+        config: {headers: {'Content-Type': 'application/json'}}
+    })
+        .then( () => {
+          handleResponse();
+        })
+        .catch(error => {
+            handleError(error);
+        });
+}
+
+
+export function displayErrorMessage(context, message) {
+    context.setState({
+        errorMessage: message,
+        errorDisplay: {display: "block"},
+        color: 'red',
+        fontWeight: 'bold'
     });
+}
+
+export function validatePasswordsEquality(context, p1, p2) {
+    if (p1 === p2) {
+        return true;
+    }
+
+    const message = 'Hasła są różne';
+    displayErrorMessage(context, message)
+    return false;
+}
+
+export function validatePasswordStrength(context, password) {
+    if (password.match("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$")) {
+        return true;
+    }
+
+    const message = 'Twoje hasło powinno zawierać co najmniej jedną większą literę, jedną mniejszą literę, cyfrę oraz posiadać 8 znaków';
+    displayErrorMessage(context, message);
+    return false;
+}
+
+export function signout(){
+    localStorage.clear();
+    window.location = "/login";
 }

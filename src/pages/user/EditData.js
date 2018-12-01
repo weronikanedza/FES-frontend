@@ -178,6 +178,9 @@ export default class EditData extends Component {
             <div>
                 <Header/>
                 <div className="editDataForm">
+                    <div className="password-text-box">
+                        Edycja danych
+                    </div>
                     <form className="edit-data-form-box">
                         <div className="groupPair">
                             <FormGroup className="inputStyle" controlId="firstName" bsSize="large">
@@ -256,7 +259,7 @@ export default class EditData extends Component {
                             }
                             }
                             bsSize="large"
-                            bsStyle="warning"
+                            bsStyle="info"
                             type="submit"
                             onClick={this.handleSubmit}
                         >

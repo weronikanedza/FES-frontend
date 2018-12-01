@@ -111,7 +111,7 @@ export default class UploadFileForm extends Component {
                 <Button
                     block
                     bsSize="large"
-                    bsStyle="warning"
+                    bsStyle="info"
                     type="submit"
                     onClick={this.handleSubmit}
                 >
@@ -119,7 +119,7 @@ export default class UploadFileForm extends Component {
                 </Button>
             </div>
 
-            <div className="warningUploadFile" style={this.state.disabledWarning}>{this.state.warning}</div>
+            <div className="warning-upload-file" style={this.state.disabledWarning}>{this.state.warning}</div>
         </div>);
     }
 }
