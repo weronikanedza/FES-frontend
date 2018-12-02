@@ -4,12 +4,14 @@ import "../../styles/message/Message.css";
 export default class RegistrationMessage extends Component {
     render() {
         return (
+            <div className="bodyBox">
             <div className='MessageBox'>
 
                 <div className="RegisterMessage">
-                Email with activation link has been sent.
-                    To log in click -> <a href="../login">log in</a>
+                Email z linkiem aktywacyjnym został wysłany na podany email.
+                    Aby się zalogować kliknij na załącznik <a href="../login">strona logowania</a>
                 </div>
+            </div>
             </div>);
     }
 }

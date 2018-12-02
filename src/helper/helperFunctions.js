@@ -1,6 +1,7 @@
  import axios from "axios";
 
 export function postAxios(context,data,url,handleResponse,handleError) {
+
     axios({
         method: 'post',
         url: `http://localhost:8080/${url}`,
@@ -11,16 +12,15 @@ export function postAxios(context,data,url,handleResponse,handleError) {
           handleResponse();
         })
         .catch(error => {
-            handleError(error);
+            handleError(error.response.data.message);
         });
 }
 
 
-export function displayErrorMessage(context, message) {
+export function displayMessage(context, message,color) {
     context.setState({
-        errorMessage: message,
-        errorDisplay: {display: "block"},
-        color: 'red',
+        message: message,
+        messageDisplay: {display: "block",color:color},
         fontWeight: 'bold'
     });
 }
@@ -31,7 +31,7 @@ export function validatePasswordsEquality(context, p1, p2) {
     }
 
     const message = 'Hasła są różne';
-    displayErrorMessage(context, message)
+    displayMessage(context, message,'red');
     return false;
 }
 
@@ -41,7 +41,7 @@ export function validatePasswordStrength(context, password) {
     }
 
     const message = 'Twoje hasło powinno zawierać co najmniej jedną większą literę, jedną mniejszą literę, cyfrę oraz posiadać 8 znaków';
-    displayErrorMessage(context, message);
+    displayMessage(context, message,'red');
     return false;
 }
 

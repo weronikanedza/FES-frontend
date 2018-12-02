@@ -3,6 +3,7 @@ import JpgImage from "../../images//jpg.png";
 import PngImage from "../../images//png.png";
 import DocxImage from "../../images//docx.png";
 import PdfImage from "../../images//pdf.png";
+import OthersImage from "../../images//inne.png";
 import "../../styles/user/AllFiles.css";
 import "../../styles/user/ContextMenu.css";
 import {ContextMenu, MenuItem, ContextMenuTrigger} from "react-contextmenu";
@@ -43,7 +44,7 @@ export default class File extends Component {
                 fileType = JpgImage;
                 break;
             default :
-                fileType = PdfImage;
+                fileType = OthersImage;
         }
         this.setState({imagePath: fileType})
 

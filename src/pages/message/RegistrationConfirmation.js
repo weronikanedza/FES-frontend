@@ -15,7 +15,7 @@ export default class RegistrationConfirmation extends Component {
     postRequest() {
         let vtoken = this.props.location.search;
         const tokenIndex = vtoken.indexOf('=');
-        let regitoken ={
+        let regitoken = {
             token: vtoken.substring(tokenIndex + 1)
         };
 
@@ -26,20 +26,22 @@ export default class RegistrationConfirmation extends Component {
             config: {headers: {'Content-Type': 'application/json'}}
         })
             .then((response) => {
-         //       window.location = './register/message'
+                //       window.location = './register/message'
             })
             .catch(error => {
-             //   this.displayErrorMessage(error.response)
+                //   this.displayErrorMessage(error.response)
             });
     }
 
     render() {
         return (
-            <div className='MessageBox'>
+            <div className="bodyBox">
+                <div className='MessageBox'>
 
-                <div className="RegisterMessage">
-                    Your account is acctive.
-                    To log in click -> <a href="../login">log in</a>
+                    <div className="RegisterMessage">
+                        Twoje konto jest aktywne.
+                        Aby się zalogować kliknij w załącznik <a href="../login">strona logowania</a>
+                    </div>
                 </div>
             </div>);
     }

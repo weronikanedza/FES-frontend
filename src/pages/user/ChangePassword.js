@@ -1,12 +1,10 @@
 import React, {Component} from "react";
 import Header from "./Header";
-import {Button, ControlLabel, FormControl, FormGroup, HelpBlock} from "react-bootstrap";
+import {Button, ControlLabel, FormControl, FormGroup} from "react-bootstrap";
 import "../../styles/user/ChangePassword.css";
 import {
-    displayErrorMessage,
-    postAxios, signout,
-    validatePasswordsEquality,
-    validatePasswordStrength
+    displayMessage,
+    postAxios, signout
 } from "../../helper/helperFunctions";
 
 const formStyle =
@@ -25,8 +23,8 @@ export default class ChangePassword extends Component {
             currentPassword: '',
             newPassword: '',
             confirmedNewPassword: '',
-            errorDisplay: {display: 'none'},
-            errorMessage: ''
+            messageDisplay: {display: 'none'},
+            message: ''
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -44,7 +42,7 @@ export default class ChangePassword extends Component {
     };
 
     handleError=(error) => {
-        displayErrorMessage(this,error.response.data.message)
+        displayMessage(this,error,'red')
     };
 
     handleSubmit = (event) => {
@@ -67,7 +65,7 @@ export default class ChangePassword extends Component {
             return true;
         }
 
-        displayErrorMessage(this,'Wszystkie pola muszą zostać uzupełnione');
+        displayMessage(this,'Wszystkie pola muszą zostać uzupełnione','red');
         return false;
     }
 
@@ -127,8 +125,8 @@ export default class ChangePassword extends Component {
                     </Button>
                 </form>
             </div>
-            <div className="change-password-warning" style={this.state.errorDisplay}>
-                <div className="change-password-warning-text">{this.state.errorMessage}</div>
+            <div className="change-password-warning" style={this.state.messageDisplay}>
+                <div className="change-password-warning-text">{this.state.message}</div>
             </div>
         </div>);
     }

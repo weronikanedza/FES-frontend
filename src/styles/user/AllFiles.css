@@ -20,10 +20,11 @@
 }
 
 .fileBox-label {
-   width: 100px;
+   width: 80px;
    overflow:hidden;
    white-space:nowrap;
    text-overflow: ellipsis;
+    padding-left: 8px;
 }
 
 .delete-modal-box-buttons {
