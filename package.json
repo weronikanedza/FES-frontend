@@ -23,6 +23,7 @@
     "react-file-viewer": "^0.5.0",
     "react-modal": "^3.6.1",
     "react-native": "^0.57.5",
+    "react-reactive-form": "^1.0.28",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.4",

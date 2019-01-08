@@ -4,6 +4,8 @@ import PngImage from "../../images//png.png";
 import DocxImage from "../../images//docx.png";
 import PdfImage from "../../images//pdf.png";
 import OthersImage from "../../images//inne.png";
+import TxtImage from "../../images//txt.png";
+
 import "../../styles/user/AllFiles.css";
 import "../../styles/user/ContextMenu.css";
 import {ContextMenu, MenuItem, ContextMenuTrigger} from "react-contextmenu";
@@ -42,6 +44,9 @@ export default class File extends Component {
                 break;
             case 'jpg' :
                 fileType = JpgImage;
+                break;
+            case 'txt' :
+                fileType = TxtImage;
                 break;
             default :
                 fileType = OthersImage;

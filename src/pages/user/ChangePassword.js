@@ -4,11 +4,10 @@ import {Button, ControlLabel, FormControl, FormGroup} from "react-bootstrap";
 import "../../styles/user/ChangePassword.css";
 import {
     displayMessage,
-    postAxios, signout
+    postAxios, signout, validatePasswordsEquality, validatePasswordStrength
 } from "../../helper/helperFunctions";
 
 const formStyle =
-
     {
         width: '400px',
         margin: '0'
@@ -28,7 +27,6 @@ export default class ChangePassword extends Component {
         };
 
         this.handleChange = this.handleChange.bind(this);
-        this.validateIsNotBlank = this.validateIsNotBlank.bind(this);
     }
 
     handleChange(event) {
@@ -47,27 +45,17 @@ export default class ChangePassword extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        // if(this.validateIsNotBlank() &&
-        // validatePasswordsEquality(this,this.state.newPassword,this.state.confirmedNewPassword) &&
-        // validatePasswordStrength(this,this.state.newPassword) ){
+         if(
+         validatePasswordsEquality(this,this.state.newPassword,this.state.confirmedNewPassword) &&
+         validatePasswordStrength(this,this.state.newPassword) ){
             const passwordChange={
                 id: localStorage.getItem('id'),
                 currentPassword: this.state.currentPassword,
                 newPassword: this.state.newPassword
             };
             postAxios(this,passwordChange,'changePassword',this.handleResponse,this.handleError);
-     //   }
-    };
-
-    validateIsNotBlank() {
-        if (this.state.currentPassword.length > 0 && this.state.newPassword.length > 0
-            && this.state.confirmedNewPassword.length > 0) {
-            return true;
         }
-
-        displayMessage(this,'Wszystkie pola muszą zostać uzupełnione','red');
-        return false;
-    }
+    };
 
     render() {
         return (<div><Header/>
@@ -85,6 +73,7 @@ export default class ChangePassword extends Component {
                             value={this.state.currentPassword}
                             onChange={this.handleChange}
                             style={formStyle}
+                            required
                         />
                         <FormControl.Feedback/>
                     </FormGroup>
@@ -97,6 +86,7 @@ export default class ChangePassword extends Component {
                             value={this.state.newPassword}
                             onChange={this.handleChange}
                             style={formStyle}
+                            required
                         />
                         <FormControl.Feedback/>
                     </FormGroup>
@@ -109,6 +99,7 @@ export default class ChangePassword extends Component {
                             value={this.state.confirmedNewPassword}
                             onChange={this.handleChange}
                             style={formStyle}
+                            required
                         />
                         <FormControl.Feedback/>
                     </FormGroup>

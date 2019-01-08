@@ -8,8 +8,8 @@ export default class RegistrationMessage extends Component {
             <div className='MessageBox'>
 
                 <div className="RegisterMessage">
-                Email z linkiem aktywacyjnym został wysłany na podany email.
-                    Aby się zalogować kliknij na załącznik <a href="../login">strona logowania</a>
+                Link aktywacyjny został wysłany na podany  e-mail.
+                    Aby się zalogować kliknij  <a href="../login">strona logowania</a>
                 </div>
             </div>
             </div>);

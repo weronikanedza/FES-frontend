@@ -5,7 +5,7 @@ import {Button} from "react-bootstrap";
 import axios from "axios";
 import ReactDropzone from 'react-dropzone';
 
-export default class UploadFileForm extends Component {
+export default class UploadFile extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -82,7 +82,7 @@ export default class UploadFileForm extends Component {
             data: data
         })
             .then(response => {
-                this.displayWarning("Plik został dodany", "#44DE28");
+                this.displayWarning("Plik został dodany", "green");
             })
             .catch(error => {
                 this.displayWarning(error.response.data.message, "red");
@@ -101,7 +101,7 @@ export default class UploadFileForm extends Component {
                                    multiple={false}
                                    onDrop={this.onDrop}
                     >
-                        <span>Upuść plik</span>
+                        <span>Przenieś plik</span>
                     </ReactDropzone>
                 </div>
                 <aside>

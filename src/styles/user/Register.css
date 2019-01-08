@@ -21,10 +21,11 @@
         height: 38px;
         border-radius: 2px;
         border: 1px solid #CED4DA;
-        text-align: center;
+
         color: #9d9fa0;
         margin-right: 10px;
         float: left;
+        background-color: white;
     }
     .css-1hwfws3 {
         height: 38px;
@@ -38,6 +39,7 @@
     }
     .form-inline .form-control {
         width: 300px;
+        background-color: white
     }
     .groupPair {
         margin-top: 10px;
@@ -60,7 +62,7 @@
         text-align: center;
         font-size: 125%;
         border-radius: 10px;
-        border: 1px solid #CED4DA;
+        border: 1px solid grey;
         background: white;
         max-width: 950px;
         margin: 0 auto;
@@ -69,4 +71,13 @@
     .space{
         margin:20px;
     }
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+input[type=text] {
+ padding-left: 12px;
+ color: black;
 }

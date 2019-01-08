@@ -3,7 +3,7 @@ import "../../styles/user/AllFiles.css"
 import axios from "axios";
 import Modal from 'react-modal';
 import File from "./File";
-import {modalStyle} from "../../styles/modalStyle";
+import {modalStyle} from "../../styles/user/modalStyle";
 import {Button, ControlLabel, FormControl, HelpBlock} from "react-bootstrap";
 
 export default class AllFiles extends Component {
@@ -264,7 +264,7 @@ export default class AllFiles extends Component {
                         <FormControl.Feedback/>
                         <div style={{clear: 'both'}}/>
                         <span className="help-modal" style={{display: this.state.errorMessage ? 'block' : 'none'}}>
-                        <HelpBlock style={{color: this.state.helpColor}}>{this.state.errorMessage}</HelpBlock>
+                        <HelpBlock style={{color: this.state.helpColor, fontWeight: 'bold'}}>{this.state.errorMessage}</HelpBlock>
                         </span>
                         {this.renderButtons('ZAMKNIJ', 'UDOSTĘPNIJ', this.closeShareModal, this.shareFile)}
                     </form>
@@ -279,9 +279,9 @@ export default class AllFiles extends Component {
                         <br/>
                         <span className="detail-label">Nazwa: </span> {this.state.currentFile.fileName}
                         <br/>
-                        <span className="detail-label">Typ pliku: </span> {this.state.currentFile.fileType}
+                        <span className="detail-label">Typ: </span> {this.state.currentFile.fileType}
                         <br/>
-                        <span className="detail-label">Data edycji pliku: </span> {this.state.currentFile.date}
+                        <span className="detail-label">Data dodaniania: </span> {this.state.currentFile.date}
                         <br/>
                         <FormControl.Feedback/>
 

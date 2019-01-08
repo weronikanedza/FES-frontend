@@ -3,7 +3,7 @@ import {Button, FormGroup, FormControl, ControlLabel} from "react-bootstrap";
 import "../../styles/user/LoginForm.css";
 import axios from "axios";
 
-export default class LoginForm extends Component {
+export default class Login extends Component {
     constructor(props) {
         super(props);
 
@@ -15,10 +15,6 @@ export default class LoginForm extends Component {
         };
 
         this.handleClick = this.handleClick.bind(this);
-    }
-
-    validateForm() {
-        return this.state.loginEmail.length > 0 && this.state.password.length > 0;
     }
 
     handleClick() {
@@ -71,11 +67,12 @@ export default class LoginForm extends Component {
                 <div className="login">
                     <form onSubmit={this.handleSubmit}>
                         <FormGroup controlId="loginEmail" bsSize="large">
-                            <ControlLabel>Email</ControlLabel>
+                            <ControlLabel>Adres e-mail</ControlLabel>
                             <FormControl
                                 type="text"
                                 value={this.state.email}
                                 onChange={this.handleChange}
+                                required
                             />
                         </FormGroup>
                         <FormGroup controlId="password" bsSize="large">
@@ -85,12 +82,12 @@ export default class LoginForm extends Component {
                                 value={this.state.password}
                                 onChange={this.handleChange}
                                 type="password"
+                                required
                             />
                         </FormGroup>
                         <Button
                             block
                             bsSize="large"
-                            disabled={!this.validateForm()}
                             bsStyle="info"
                             type="submit"
                         >

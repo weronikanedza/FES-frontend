@@ -1,12 +1,12 @@
 import React, {Component} from "react";
-import '../../styles/user/resetPassword.css'
 import {Button, ControlLabel, FormControl, FormGroup} from "react-bootstrap";
-import {resetPasswordButtonStyle} from "../../styles/modalStyle";
-import {displayMessage} from "../../helper/helperFunctions";
 import axios from "axios";
 
-export default class ResetPassword extends Component {
+import '../../styles/user/resetPassword.css'
+import {resetPasswordButtonStyle} from "../../styles/user/modalStyle";
+import {displayMessage} from "../../helper/helperFunctions";
 
+export default class ResetPassword extends Component {
     constructor(props) {
         super(props);
 
@@ -16,50 +16,47 @@ export default class ResetPassword extends Component {
             message: '',
             buttonDisabled: false
         };
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleResponse = this.handleResponse.bind(this);
-        this.handleError = this.handleError.bind(this);
     }
 
-postAxios(data,url) {
-
+    postAxios(data, url) {
         axios({
             method: 'post',
             url: `http://localhost:8080/${url}`,
             data: data,
             config: {headers: {'Content-Type': 'application/json'}}
         })
-            .then( () => {
+            .then(() => {
                 this.handleResponse();
             })
             .catch(error => {
-                if(error.response)
-                this.handleError(error.response.data.message);
+                if (error.response)
+                    this.handleError(error.response.data.message);
             });
     }
 
-    handleChange(event) {
+    handleChange = (event) => {
         this.setState({
             email: event.target.value
         })
-    }
+    };
 
-    handleResponse() {
-        this.setState  ({
+    handleResponse = () => {
+        this.setState({
             buttonDisabled: true
         });
         displayMessage(this, 'Nowe hasło zostało wysłane na podany email', 'green');
+        setTimeout(function () {
+            window.location.href = "./login";
+        }, 5000);
     };
 
-    handleError(data) {
-            displayMessage(this, data, 'red');
+    handleError = (data) => {
+        displayMessage(this, data, 'red');
     };
 
-    handleSubmit(event){
+    handleSubmit = (event) => {
         event.preventDefault();
-        this.postAxios( this.state.email, 'resetPassword')
+        this.postAxios(this.state.email, 'resetPassword')
     };
 
     render() {
@@ -75,6 +72,7 @@ postAxios(data,url) {
                                 type="email"
                                 value={this.state.email}
                                 onChange={this.handleChange}
+                                required
                             />
                         </FormGroup>
                         <Button

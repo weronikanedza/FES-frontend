@@ -1,24 +1,24 @@
 import React, {Component} from "react";
 import {Button, FormGroup, FormControl, ControlLabel, Form} from "react-bootstrap";
 import "../../styles/user/Register.css";
-import countryList from 'react-select-country-list'
 import Select from 'react-select'
 import axios from 'axios'
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
+import {getCountries} from "../../helper/helperFunctions";
 
 export default class Register extends Component {
     constructor(props) {
         super(props);
 
-        this.options = countryList().getData()
+        this.options = getCountries();
 
         this.state = {
             firstName: "",
             lastName: "",
             email: "",
-            dateOfBirth: "",
+            dateOfBirth: moment(),
             city: "",
             password: "",
             confirmedPassword: "",
@@ -36,7 +36,6 @@ export default class Register extends Component {
         this.handleChangeDate = this.handleChangeDate.bind(this);
         this.validateDate = this.validateDate.bind(this);
         this.handleChangeCountry = this.handleChangeCountry.bind(this);
-        this.isAdult = this.isAdult.bind(this);
         this.validate = this.validate.bind(this);
         this.displayErrorMessage = this.displayErrorMessage.bind(this);
     }
@@ -70,8 +69,8 @@ export default class Register extends Component {
     }
 
     handleSubmit = event => {
-        //  if (this.validateForm())
-        this.postRequest();
+        if (this.validateForm())
+            this.postRequest();
         event.preventDefault();
     };
 
@@ -97,27 +96,20 @@ export default class Register extends Component {
             return true;
         } else {
             this.setState({
-                warning: "Twoje hasło powinno zawierać co najmniej jedną większą literę, jedną mniejszą literę, cyfrę oraz posiadać 8 znaków",
+                warning: "Hasło powinno zawierać min. 8 znaków, małą i dużą literę oraz liczbę",
                 disabledWarning: {display: "block"}
             });
         }
     }
 
     validateDate() {
-        return this.validateFormat() && this.isAdult();
+        return this.validateFormat();
     }
 
     validateFormat() {
         const selectedDate = this.state.dateOfBirth;
-        const message = "Date format incorrect";
+        const message = "Niepoprawny format daty";
         return this.validate(selectedDate && moment(selectedDate, 'MM/DD/YYYY', true).isValid(), message)
-    }
-
-    isAdult() {
-        const day = this.state.startDate.day();
-        const month = this.state.startDate.month();
-        const year = this.state.startDate.year();
-        return this.validate(new Date(year + 18, month - 1, day) <= new Date(), "Nie jesteś pełnoletni");
     }
 
     validate(condition, message) {
@@ -176,20 +168,20 @@ export default class Register extends Component {
                             <FormGroup controlId="firstName" bsSize="large">
                                 <ControlLabel>Imię</ControlLabel>
                                 <FormControl
-                                    autoFocus
                                     type="text"
                                     value={this.state.firstName}
                                     onChange={this.handleChange}
+                                    placeholder={'Imię'}
                                     required
                                 />
                             </FormGroup>
                             <FormGroup controlId="lastName" bsSize="large">
                                 <ControlLabel>Nazwisko</ControlLabel>
                                 <FormControl
-                                    autoFocus
                                     type="text"
                                     value={this.state.lastName}
                                     onChange={this.handleChange}
+                                    placeholder={'Nazwisko'}
                                     required
                                 />
                             </FormGroup>
@@ -198,10 +190,10 @@ export default class Register extends Component {
                             <FormGroup controlId="email" bsSize="large">
                                 <ControlLabel>Email</ControlLabel>
                                 <FormControl
-                                    autoFocus
                                     type="email"
                                     value={this.state.email}
                                     onChange={this.handleChange}
+                                    placeholder={'Email'}
                                     required
                                 />
                             </FormGroup>
@@ -222,17 +214,17 @@ export default class Register extends Component {
                                     type="text"
                                     value={this.state.city}
                                     onChange={this.handleChange}
+                                    placeholder={'Miasto'}
                                     required
                                 />
                             </FormGroup>
-
                             <FormGroup controlId="Country" bsSize="large">
                                 <ControlLabel>Kraj</ControlLabel>
                                 <Select required="required"
                                         options={this.state.options}
                                         value={this.state.value}
                                         onChange={this.handleChangeCountry}
-
+                                        placeholder={'Wybierz...'}
                                 />
                             </FormGroup>
 
@@ -244,6 +236,7 @@ export default class Register extends Component {
                                     value={this.state.password}
                                     onChange={this.handleChange}
                                     type="password"
+                                    placeholder={'Hasło'}
                                     required
                                 />
                             </FormGroup>
@@ -253,6 +246,7 @@ export default class Register extends Component {
                                     value={this.state.confirmedPassword}
                                     onChange={this.handleChange}
                                     type="password"
+                                    placeholder={'Powtórz hasło'}
                                     required
                                 />
                             </FormGroup>

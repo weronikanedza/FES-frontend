@@ -9,12 +9,13 @@ import "../../styles/user/EditData.css";
 import countryList from 'react-select-country-list'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import {getCountries} from "../../helper/helperFunctions";
 
 export default class EditData extends Component {
     constructor(props) {
         super(props);
 
-        this.options = countryList().getData()
+        this.options = getCountries();
 
         this.state = {
             firstName: "",
@@ -35,7 +36,6 @@ export default class EditData extends Component {
         this.handleChangeDate = this.handleChangeDate.bind(this);
         this.validateDate = this.validateDate.bind(this);
         this.handleChangeCountry = this.handleChangeCountry.bind(this);
-        this.isAdult = this.isAdult.bind(this);
         this.validate = this.validate.bind(this);
         this.displayErrorMessage = this.displayErrorMessage.bind(this);
     }
@@ -83,7 +83,7 @@ export default class EditData extends Component {
             config: {headers: {'Content-Type': 'application/json'}}
         })
             .then((response) => {
-                this.displayMessage("Dane zostały edytowane.")
+                this.displayMessage("Dane zostały zmienione.")
             })
             .catch(error => {
                 this.displayErrorMessage(error.response.data)
@@ -130,20 +130,13 @@ export default class EditData extends Component {
     }
 
     validateDate() {
-        return this.validateFormat() && this.isAdult();
+        return this.validateFormat();
     }
 
     validateFormat() {
         const selectedDate = this.state.dateOfBirth;
         const message = "Date format incorrect";
         return this.validate(selectedDate && moment(selectedDate, 'DD-MM-YYYY', true).isValid(), message)
-    }
-
-    isAdult() {
-        const day = this.state.startDate.day();
-        const month = this.state.startDate.month();
-        const year = this.state.startDate.year();
-        return this.validate(new Date(year + 18, month - 1, day) <= new Date(), "Nie jesteś pełnoletni");
     }
 
     validate(condition, message) {
